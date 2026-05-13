@@ -124,7 +124,16 @@
             </div>
 
             <div class="obs">
-                <button class="obs-trigger">Observações</button>
+                <div class="obs-actions">
+                    <button class="obs-trigger">Observações</button>
+                    <button
+                        class="reset-trigger"
+                        onclick="resetar()"
+                        title="Novo cálculo"
+                    >
+                        <img src="rotate-ccw.svg" alt="Reset" />
+                    </button>
+                </div>
                 <p class="warning">
                     <strong
                         >Consulte sempre um contador especializado para assuntos
@@ -619,6 +628,80 @@
 
                     requestAnimationFrame(scrollStep);
                 }
+            }
+
+            function resetar() {
+                // Clear all inputs
+                document.getElementById("compraCotacao").value = "";
+                document.getElementById("valorAquisicaoUSD").value = "";
+                document.getElementById("vendaCotacao").value = "";
+                document.getElementById("valorVendaUSD").value = "";
+
+                // Clear error messages
+                document.getElementById("compraCotacaoError").textContent = "";
+                document.getElementById("valorAquisicaoUSDError").textContent =
+                    "";
+                document.getElementById("vendaCotacaoError").textContent = "";
+                document.getElementById("valorVendaUSDError").textContent = "";
+
+                // Reset result displays
+                const ids = [
+                    "valorAquisicaoBRL",
+                    "valorVendaBRL",
+                    "lucroBrutoGC",
+                    "impostoGC",
+                    "iofCambio",
+                    "lucroLiquido",
+                    "valorTotalReceber",
+                ];
+                ids.forEach((id) => {
+                    const el = document.getElementById(id);
+                    el.textContent =
+                        id === "impostoGC" || id === "iofCambio"
+                            ? formatCurrency(0, true)
+                            : formatCurrency(0);
+                    el.classList.remove("positive-value", "negative-value");
+                });
+
+                // Reset performance displays
+                document.getElementById("percentualLucroBruto").textContent =
+                    formatPercentage(0);
+                document.getElementById(
+                    "percentualLucroLiquidoAquisicao",
+                ).textContent = formatPercentage(0);
+                document.getElementById("percentualTributosVenda").textContent =
+                    formatPercentage(0);
+                document.getElementById("totalTributos").textContent =
+                    formatCurrency(0, true);
+
+                [
+                    "percentualLucroBruto",
+                    "percentualLucroLiquidoAquisicao",
+                ].forEach((id) => {
+                    document
+                        .getElementById(id)
+                        .classList.remove(
+                            "performance-positive",
+                            "performance-negative",
+                        );
+                });
+
+                document
+                    .getElementById("percentualTributosVenda")
+                    .classList.add("performance-negative");
+                document
+                    .getElementById("percentualTributosVenda")
+                    .classList.remove("performance-positive");
+
+                document
+                    .getElementById("totalTributos")
+                    .classList.add("performance-negative");
+                document
+                    .getElementById("totalTributos")
+                    .classList.remove("performance-positive");
+
+                // Scroll to top
+                window.scrollTo({ top: 0, behavior: "smooth" });
             }
         </script>
     </body>
