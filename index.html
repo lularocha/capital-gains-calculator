@@ -1,539 +1,625 @@
 <!doctype html>
 <html lang="pt-BR">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Stonks</title>
-    <link rel="icon" type="image/png" href="favicon.png" />
-    <link rel="stylesheet" type="text/css" href="styles.css" />
-  </head>
-  <body>
-    <div class="container">
-      <h4 class="sugiro">sugiro.ai</h4>
-      <h1 class="brand">STONKS</h1>
-      <button class="help">Sobre a cotação USD/BRL PTAX</button>
-      <h3>
-        Cálculo de operação de compra e venda de ações americanas e impostos:
-      </h3>
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <title>Taxman</title>
+        <link rel="icon" type="image/png" href="favicon.png" />
+        <link rel="stylesheet" type="text/css" href="styles.css" />
+    </head>
+    <body>
+        <div class="container">
+            <h4 class="sugiro">sugiro.ai</h4>
+            <h1 class="brand">TAXMAN</h1>
+            <button class="help">Sobre a cotação USD/BRL PTAX</button>
+            <h3>
+                Cálculo de operação de compra e venda de ações americanas e
+                impostos:
+            </h3>
 
-      <div class="section input-area">
-        <h2>Dados da operação</h2>
-        <div class="input-group">
-          <label for="compraCotacao">Cotação USD/BRL PTAX na compra</label>
-          <input
-            type="number"
-            id="compraCotacao"
-            placeholder="Ex: 5.00"
-            step="0.0001"
-          />
-          <div class="error-message" id="compraCotacaoError"></div>
+            <div class="section input-area">
+                <h2>Dados da operação</h2>
+                <div class="input-group">
+                    <label for="compraCotacao"
+                        >Cotação USD/BRL PTAX na compra</label
+                    >
+                    <input
+                        type="number"
+                        id="compraCotacao"
+                        placeholder="Ex: 5.00"
+                        step="0.0001"
+                    />
+                    <div class="error-message" id="compraCotacaoError"></div>
+                </div>
+                <div class="input-group">
+                    <label for="valorAquisicaoUSD"
+                        >Valor da compra em USD</label
+                    >
+                    <input
+                        type="number"
+                        id="valorAquisicaoUSD"
+                        placeholder="Ex: 1000.00"
+                        step="0.01"
+                    />
+                    <div
+                        class="error-message"
+                        id="valorAquisicaoUSDError"
+                    ></div>
+                </div>
+                <div class="input-group">
+                    <label for="vendaCotacao"
+                        >Cotação USD/BRL PTAX na venda</label
+                    >
+                    <input
+                        type="number"
+                        id="vendaCotacao"
+                        placeholder="Ex: 5.20"
+                        step="0.0001"
+                    />
+                    <div class="error-message" id="vendaCotacaoError"></div>
+                </div>
+                <div class="input-group">
+                    <label for="valorVendaUSD">Valor da venda em USD</label>
+                    <input
+                        type="number"
+                        id="valorVendaUSD"
+                        placeholder="Ex: 1200.00"
+                        step="0.01"
+                    />
+                    <div class="error-message" id="valorVendaUSDError"></div>
+                </div>
+                <button onclick="calcular()">CALCULAR</button>
+            </div>
+
+            <div class="section results-area">
+                <h2>Resultado da operação</h2>
+                <div class="result-item">
+                    <span>Valor da compra</span>
+                    <span id="valorAquisicaoBRL">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Valor da venda</span>
+                    <span id="valorVendaBRL">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Lucro bruto</span>
+                    <span id="lucroBrutoGC">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Imposto GC 15%</span>
+                    <span id="impostoGC">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>IOF Câmbio 0,38%</span>
+                    <span id="iofCambio">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Lucro líquido</span>
+                    <span id="lucroLiquido">R$ 0,00</span>
+                </div>
+                <div class="result-item">
+                    <span>Total líquido a receber</span>
+                    <span id="valorTotalReceber">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="section performance-area">
+                <h2>Análise</h2>
+                <div class="performance-item">
+                    <span>Lucro bruto</span>
+                    <span id="percentualLucroBruto">0.00%</span>
+                </div>
+                <div class="performance-item">
+                    <span>Lucro líquido</span>
+                    <span id="percentualLucroLiquidoAquisicao">0.00%</span>
+                </div>
+                <div class="performance-item">
+                    <span>Tributos</span>
+                    <span id="percentualTributosVenda">0.00%</span>
+                </div>
+                <div class="performance-item">
+                    <span>Total dos tributos</span>
+                    <span id="totalTributos">R$ 0,00</span>
+                </div>
+            </div>
+
+            <div class="obs">
+                <button class="obs-trigger">Observações</button>
+                <p class="warning">
+                    <strong
+                        >Consulte sempre um contador especializado para assuntos
+                        relacionados a impostos.</strong
+                    >
+                </p>
+            </div>
+            <footer>
+                desenvolvido por Lula Rocha /
+                <a href="https://sugiro.ai" target="_blank">sugiro.ai</a>
+            </footer>
         </div>
-        <div class="input-group">
-          <label for="valorAquisicaoUSD">Valor da compra em USD</label>
-          <input
-            type="number"
-            id="valorAquisicaoUSD"
-            placeholder="Ex: 1000.00"
-            step="0.01"
-          />
-          <div class="error-message" id="valorAquisicaoUSDError"></div>
+
+        <!-- Observações Modal -->
+        <div id="obsModal" class="modal">
+            <div class="modal-content">
+                <span class="close-obs">&times;</span>
+                <h2>Observações</h2>
+                <div class="modal-body">
+                    <p>
+                        Consultar a
+                        <a
+                            class="obs-link"
+                            href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes"
+                            target="_blank"
+                            >cotação do dólar PTAX do BCB</a
+                        >, no dia da compra e no dia da venda.
+                    </p>
+                    <p>
+                        O mercado é a referência, use a cotação de
+                        <span class="underline">Venda</span> para o dia da
+                        compra e a cotação de
+                        <span class="underline">Compra</span> para o dia da
+                        venda.
+                    </p>
+                    <p>
+                        Para efeito de simulação, a calculadora também considera
+                        que será feito o câmbio dos dólares resultantes da venda
+                        para reais, no mesmo dia, aplicando o IOF sobre o
+                        câmbio.
+                    </p>
+                </div>
+            </div>
         </div>
-        <div class="input-group">
-          <label for="vendaCotacao">Cotação USD/BRL PTAX na venda</label>
-          <input
-            type="number"
-            id="vendaCotacao"
-            placeholder="Ex: 5.20"
-            step="0.0001"
-          />
-          <div class="error-message" id="vendaCotacaoError"></div>
+
+        <!-- Modal -->
+        <div id="helpModal" class="modal">
+            <div class="modal-content">
+                <span class="close">&times;</span>
+                <h2>Sobre a Cotação USD/BRL PTAX</h2>
+                <div class="modal-body">
+                    <p>Regra para a conversão:</p>
+
+                    <div class="modal-section">
+                        <h3>Na COMPRA das ações</h3>
+                        <ul>
+                            <li>
+                                Usar o dólar PTAX de <strong>VENDA</strong>
+                                <br />da data da operação ou liquidação.
+                            </li>
+                            <li>
+                                Por quê ?<br />A Receita entende que, para você
+                                comprar o ativo, você precisou comprar o dólar
+                                do mercado, e o mercado
+                                <strong>vende</strong> para você pelo preço de
+                                <strong>VENDA</strong> dele.
+                            </li>
+                        </ul>
+                    </div>
+
+                    <div class="modal-section">
+                        <h3>Na VENDA das ações</h3>
+                        <ul>
+                            <li>
+                                Usar o dólar PTAX de <strong>COMPRA</strong>
+                                <br />da data da operação ou liquidação.
+                            </li>
+                            <li>
+                                Por quê ?<br />A lógica é que, ao vender o ativo
+                                e receber dólares, se você fosse convertê-los em
+                                reais, o mercado os
+                                <strong>compraria</strong> de você pelo preço de
+                                <strong>COMPRA</strong> dele.
+                            </li>
+                        </ul>
+                    </div>
+                    <a
+                        class="historico"
+                        href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes"
+                        >Histórico da cotação do dólar PTAX no BCB</a
+                    >
+                </div>
+            </div>
         </div>
-        <div class="input-group">
-          <label for="valorVendaUSD">Valor da venda em USD</label>
-          <input
-            type="number"
-            id="valorVendaUSD"
-            placeholder="Ex: 1200.00"
-            step="0.01"
-          />
-          <div class="error-message" id="valorVendaUSDError"></div>
-        </div>
-        <button onclick="calcular()">CALCULAR</button>
-      </div>
 
-      <div class="section results-area">
-        <h2>Resultado da operação</h2>
-        <div class="result-item">
-          <span>Valor da compra</span>
-          <span id="valorAquisicaoBRL">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>Valor da venda</span>
-          <span id="valorVendaBRL">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>Lucro bruto</span>
-          <span id="lucroBrutoGC">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>Imposto GC 15%</span>
-          <span id="impostoGC">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>IOF Câmbio 0,38%</span>
-          <span id="iofCambio">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>Lucro líquido</span>
-          <span id="lucroLiquido">R$ 0,00</span>
-        </div>
-        <div class="result-item">
-          <span>Total líquido a receber</span>
-          <span id="valorTotalReceber">R$ 0,00</span>
-        </div>
-      </div>
+        <script>
+            // Modal functionality
+            const modal = document.getElementById("helpModal");
+            const btn = document.querySelector(".help");
+            const span = document.querySelector(".close");
 
-      <div class="section performance-area">
-        <h2>Análise</h2>
-        <div class="performance-item">
-          <span>Lucro bruto</span>
-          <span id="percentualLucroBruto">0.00%</span>
-        </div>
-        <div class="performance-item">
-          <span>Lucro líquido</span>
-          <span id="percentualLucroLiquidoAquisicao">0.00%</span>
-        </div>
-        <div class="performance-item">
-          <span>Tributos</span>
-          <span id="percentualTributosVenda">0.00%</span>
-        </div>
-        <div class="performance-item">
-          <span>Total dos tributos</span>
-          <span id="totalTributos">R$ 0,00</span>
-        </div>
-      </div>
+            btn.onclick = function () {
+                modal.style.display = "block";
+                setTimeout(() => {
+                    modal.classList.add("show");
+                }, 10);
+            };
 
-      <div class="obs">
-        <button class="obs-trigger">Observações</button>
-        <p class="warning">
-          <strong
-            >Consulte sempre um contador especializado para assuntos
-            relacionados a impostos.</strong
-          >
-        </p>
-      </div>
-      <footer>
-        desenvolvido por Lula Rocha /
-        <a href="https://sugiro.ai" target="_blank">sugiro.ai</a>
-      </footer>
-    </div>
+            span.onclick = function () {
+                modal.classList.remove("show");
+                setTimeout(() => {
+                    modal.style.display = "none";
+                }, 300);
+            };
 
-    <!-- Observações Modal -->
-    <div id="obsModal" class="modal">
-      <div class="modal-content">
-        <span class="close-obs">&times;</span>
-        <h2>Observações</h2>
-        <div class="modal-body">
-          <p>
-            Consultar a
-            <a
-              href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes"
-              target="_blank"
-              >cotação do dólar PTAX do BCB</a
-            >, no dia da compra e no dia da venda.
-          </p>
-          <p>
-            Para efeito de simulação, a calculadora também considera que será
-            feito o câmbio dos dólares resultantes da venda para reais, no mesmo
-            dia, aplicando o IOF sobre o câmbio.
-          </p>
-        </div>
-      </div>
-    </div>
+            // Observações modal
+            const obsModal = document.getElementById("obsModal");
+            const obsBtn = document.querySelector(".obs-trigger");
+            const obsSpan = document.querySelector(".close-obs");
 
-    <!-- Modal -->
-    <div id="helpModal" class="modal">
-      <div class="modal-content">
-        <span class="close">&times;</span>
-        <h2>Sobre a Cotação USD/BRL PTAX</h2>
-        <div class="modal-body">
-          <p>Regra para a conversão:</p>
+            obsBtn.onclick = function () {
+                obsModal.style.display = "block";
+                setTimeout(() => {
+                    obsModal.classList.add("show");
+                }, 10);
+            };
 
-          <div class="modal-section">
-            <h3>Na COMPRA das ações</h3>
-            <ul>
-              <li>
-                Usar o dólar PTAX de <strong>VENDA</strong> <br />da data da
-                operação ou liquidação.
-              </li>
-              <li>
-                Por quê ?<br />A Receita entende que, para você comprar o ativo,
-                você precisou comprar o dólar do mercado, e o mercado
-                <strong>vende</strong> para você pelo preço de
-                <strong>VENDA</strong> dele.
-              </li>
-            </ul>
-          </div>
+            obsSpan.onclick = function () {
+                obsModal.classList.remove("show");
+                setTimeout(() => {
+                    obsModal.style.display = "none";
+                }, 300);
+            };
 
-          <div class="modal-section">
-            <h3>Na VENDA das ações</h3>
-            <ul>
-              <li>
-                Usar o dólar PTAX de <strong>COMPRA</strong> <br />da data da
-                operação ou liquidação.
-              </li>
-              <li>
-                Por quê ?<br />A lógica é que, ao vender o ativo e receber
-                dólares, se você fosse convertê-los em reais, o mercado os
-                <strong>compraria</strong> de você pelo preço de
-                <strong>COMPRA</strong> dele.
-              </li>
-            </ul>
-          </div>
-          <a
-            class="historico"
-            href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes"
-            >Histórico da cotação do dólar PTAX no BCB</a
-          >
-        </div>
-      </div>
-    </div>
+            window.onclick = function (event) {
+                if (event.target == modal) {
+                    modal.classList.remove("show");
+                    setTimeout(() => {
+                        modal.style.display = "none";
+                    }, 300);
+                }
+                if (event.target == obsModal) {
+                    obsModal.classList.remove("show");
+                    setTimeout(() => {
+                        obsModal.style.display = "none";
+                    }, 300);
+                }
+            };
 
-    <script>
-      // Modal functionality
-      const modal = document.getElementById("helpModal");
-      const btn = document.querySelector(".help");
-      const span = document.querySelector(".close");
+            // Função para formatar valores monetários com cores e sinal de subtração
+            function formatCurrency(value, isDeduction = false) {
+                let formattedValue = value.toLocaleString("pt-BR", {
+                    style: "currency",
+                    currency: "BRL",
+                });
 
-      btn.onclick = function () {
-        modal.style.display = "block";
-        setTimeout(() => {
-          modal.classList.add("show");
-        }, 10);
-      };
+                if (isDeduction) {
+                    formattedValue = `- ${formattedValue}`;
+                }
 
-      span.onclick = function () {
-        modal.classList.remove("show");
-        setTimeout(() => {
-          modal.style.display = "none";
-        }, 300);
-      };
+                return formattedValue;
+            }
 
-      // Observações modal
-      const obsModal = document.getElementById("obsModal");
-      const obsBtn = document.querySelector(".obs-trigger");
-      const obsSpan = document.querySelector(".close-obs");
+            // Função para formatar percentuais com cores
+            function formatPercentage(value) {
+                return value.toLocaleString("pt-BR", {
+                    style: "percent",
+                    minimumFractionDigits: 2,
+                    maximumFractionDigits: 2,
+                });
+            }
 
-      obsBtn.onclick = function () {
-        obsModal.style.display = "block";
-        setTimeout(() => {
-          obsModal.classList.add("show");
-        }, 10);
-      };
+            function validateInput(id, errorMessageId, fieldName) {
+                const inputElement = document.getElementById(id);
+                const errorElement = document.getElementById(errorMessageId);
+                const value = parseFloat(inputElement.value);
 
-      obsSpan.onclick = function () {
-        obsModal.classList.remove("show");
-        setTimeout(() => {
-          obsModal.style.display = "none";
-        }, 300);
-      };
+                if (isNaN(value) || value <= 0) {
+                    errorElement.textContent = `Por favor, insira um valor válido e maior que zero para ${fieldName}.`;
+                    inputElement.classList.add("error");
+                    return false;
+                } else {
+                    errorElement.textContent = "";
+                    inputElement.classList.remove("error");
+                    return true;
+                }
+            }
 
-      window.onclick = function (event) {
-        if (event.target == modal) {
-          modal.classList.remove("show");
-          setTimeout(() => {
-            modal.style.display = "none";
-          }, 300);
-        }
-        if (event.target == obsModal) {
-          obsModal.classList.remove("show");
-          setTimeout(() => {
-            obsModal.style.display = "none";
-          }, 300);
-        }
-      };
+            function calcular() {
+                const compraCotacao = parseFloat(
+                    document.getElementById("compraCotacao").value,
+                );
+                const valorAquisicaoUSD = parseFloat(
+                    document.getElementById("valorAquisicaoUSD").value,
+                );
+                const vendaCotacao = parseFloat(
+                    document.getElementById("vendaCotacao").value,
+                );
+                const valorVendaUSD = parseFloat(
+                    document.getElementById("valorVendaUSD").value,
+                );
 
-      // Função para formatar valores monetários com cores e sinal de subtração
-      function formatCurrency(value, isDeduction = false) {
-        let formattedValue = value.toLocaleString("pt-BR", {
-          style: "currency",
-          currency: "BRL",
-        });
+                // Validação dos inputs
+                let isValid = true;
+                isValid =
+                    validateInput(
+                        "compraCotacao",
+                        "compraCotacaoError",
+                        "Cotação de Compra",
+                    ) && isValid;
+                isValid =
+                    validateInput(
+                        "valorAquisicaoUSD",
+                        "valorAquisicaoUSDError",
+                        "Valor de Aquisição em USD",
+                    ) && isValid;
+                isValid =
+                    validateInput(
+                        "vendaCotacao",
+                        "vendaCotacaoError",
+                        "Cotação de Venda",
+                    ) && isValid;
+                isValid =
+                    validateInput(
+                        "valorVendaUSD",
+                        "valorVendaUSDError",
+                        "Valor de Venda em USD",
+                    ) && isValid;
 
-        if (isDeduction) {
-          formattedValue = `- ${formattedValue}`;
-        }
+                if (!isValid) {
+                    // Limpa os resultados
+                    document.getElementById("valorAquisicaoBRL").textContent =
+                        formatCurrency(0);
+                    document
+                        .getElementById("valorAquisicaoBRL")
+                        .classList.remove("positive-value", "negative-value");
 
-        return formattedValue;
-      }
+                    document.getElementById("valorVendaBRL").textContent =
+                        formatCurrency(0);
+                    document
+                        .getElementById("valorVendaBRL")
+                        .classList.remove("positive-value", "negative-value");
 
-      // Função para formatar percentuais com cores
-      function formatPercentage(value) {
-        return value.toLocaleString("pt-BR", {
-          style: "percent",
-          minimumFractionDigits: 2,
-          maximumFractionDigits: 2,
-        });
-      }
+                    document.getElementById("lucroBrutoGC").textContent =
+                        formatCurrency(0);
+                    document
+                        .getElementById("lucroBrutoGC")
+                        .classList.remove("positive-value", "negative-value");
 
-      function validateInput(id, errorMessageId, fieldName) {
-        const inputElement = document.getElementById(id);
-        const errorElement = document.getElementById(errorMessageId);
-        const value = parseFloat(inputElement.value);
+                    document.getElementById("impostoGC").textContent =
+                        formatCurrency(0, true);
+                    document
+                        .getElementById("impostoGC")
+                        .classList.add("negative-value");
+                    document
+                        .getElementById("impostoGC")
+                        .classList.remove("positive-value");
 
-        if (isNaN(value) || value <= 0) {
-          errorElement.textContent = `Por favor, insira um valor válido e maior que zero para ${fieldName}.`;
-          inputElement.classList.add("error");
-          return false;
-        } else {
-          errorElement.textContent = "";
-          inputElement.classList.remove("error");
-          return true;
-        }
-      }
+                    document.getElementById("iofCambio").textContent =
+                        formatCurrency(0, true);
+                    document
+                        .getElementById("iofCambio")
+                        .classList.add("negative-value");
+                    document
+                        .getElementById("iofCambio")
+                        .classList.remove("positive-value");
 
-      function calcular() {
-        const compraCotacao = parseFloat(
-          document.getElementById("compraCotacao").value,
-        );
-        const valorAquisicaoUSD = parseFloat(
-          document.getElementById("valorAquisicaoUSD").value,
-        );
-        const vendaCotacao = parseFloat(
-          document.getElementById("vendaCotacao").value,
-        );
-        const valorVendaUSD = parseFloat(
-          document.getElementById("valorVendaUSD").value,
-        );
+                    document.getElementById("lucroLiquido").textContent =
+                        formatCurrency(0);
+                    document
+                        .getElementById("lucroLiquido")
+                        .classList.remove("positive-value", "negative-value");
 
-        // Validação dos inputs
-        let isValid = true;
-        isValid =
-          validateInput(
-            "compraCotacao",
-            "compraCotacaoError",
-            "Cotação de Compra",
-          ) && isValid;
-        isValid =
-          validateInput(
-            "valorAquisicaoUSD",
-            "valorAquisicaoUSDError",
-            "Valor de Aquisição em USD",
-          ) && isValid;
-        isValid =
-          validateInput(
-            "vendaCotacao",
-            "vendaCotacaoError",
-            "Cotação de Venda",
-          ) && isValid;
-        isValid =
-          validateInput(
-            "valorVendaUSD",
-            "valorVendaUSDError",
-            "Valor de Venda em USD",
-          ) && isValid;
+                    document.getElementById("valorTotalReceber").textContent =
+                        formatCurrency(0);
+                    document
+                        .getElementById("valorTotalReceber")
+                        .classList.remove("positive-value", "negative-value");
 
-        if (!isValid) {
-          // Limpa os resultados
-          document.getElementById("valorAquisicaoBRL").textContent =
-            formatCurrency(0);
-          document
-            .getElementById("valorAquisicaoBRL")
-            .classList.remove("positive-value", "negative-value");
+                    document.getElementById(
+                        "percentualLucroBruto",
+                    ).textContent = formatPercentage(0);
+                    document
+                        .getElementById("percentualLucroBruto")
+                        .classList.remove(
+                            "performance-positive",
+                            "performance-negative",
+                        );
 
-          document.getElementById("valorVendaBRL").textContent =
-            formatCurrency(0);
-          document
-            .getElementById("valorVendaBRL")
-            .classList.remove("positive-value", "negative-value");
+                    document.getElementById(
+                        "percentualLucroLiquidoAquisicao",
+                    ).textContent = formatPercentage(0);
+                    document
+                        .getElementById("percentualLucroLiquidoAquisicao")
+                        .classList.remove(
+                            "performance-positive",
+                            "performance-negative",
+                        );
 
-          document.getElementById("lucroBrutoGC").textContent =
-            formatCurrency(0);
-          document
-            .getElementById("lucroBrutoGC")
-            .classList.remove("positive-value", "negative-value");
+                    document.getElementById(
+                        "percentualTributosVenda",
+                    ).textContent = formatPercentage(0);
+                    document
+                        .getElementById("percentualTributosVenda")
+                        .classList.add("performance-negative");
+                    document
+                        .getElementById("percentualTributosVenda")
+                        .classList.remove("performance-positive");
 
-          document.getElementById("impostoGC").textContent = formatCurrency(
-            0,
-            true,
-          );
-          document.getElementById("impostoGC").classList.add("negative-value");
-          document
-            .getElementById("impostoGC")
-            .classList.remove("positive-value");
+                    document.getElementById("totalTributos").textContent =
+                        formatCurrency(0, true);
+                    document
+                        .getElementById("totalTributos")
+                        .classList.add("performance-negative");
+                    document
+                        .getElementById("totalTributos")
+                        .classList.remove("performance-positive");
 
-          document.getElementById("iofCambio").textContent = formatCurrency(
-            0,
-            true,
-          );
-          document.getElementById("iofCambio").classList.add("negative-value");
-          document
-            .getElementById("iofCambio")
-            .classList.remove("positive-value");
+                    return;
+                }
 
-          document.getElementById("lucroLiquido").textContent =
-            formatCurrency(0);
-          document
-            .getElementById("lucroLiquido")
-            .classList.remove("positive-value", "negative-value");
+                // Cálculos
+                const valorAquisicaoBRL = valorAquisicaoUSD * compraCotacao;
+                const valorVendaBRL = valorVendaUSD * vendaCotacao;
+                const lucroBrutoGC = valorVendaBRL - valorAquisicaoBRL;
 
-          document.getElementById("valorTotalReceber").textContent =
-            formatCurrency(0);
-          document
-            .getElementById("valorTotalReceber")
-            .classList.remove("positive-value", "negative-value");
+                const impostoGC = lucroBrutoGC > 0 ? lucroBrutoGC * 0.15 : 0;
+                const iofCambio = valorVendaBRL * 0.0038;
+                const lucroLiquido = lucroBrutoGC - impostoGC - iofCambio;
+                const totalTributos = impostoGC + iofCambio;
+                const valorTotalReceber = valorVendaBRL - totalTributos;
 
-          document.getElementById("percentualLucroBruto").textContent =
-            formatPercentage(0);
-          document
-            .getElementById("percentualLucroBruto")
-            .classList.remove("performance-positive", "performance-negative");
+                // Exibir resultados BRL
+                const elemValorAquisicaoBRL =
+                    document.getElementById("valorAquisicaoBRL");
+                elemValorAquisicaoBRL.textContent =
+                    formatCurrency(valorAquisicaoBRL);
+                elemValorAquisicaoBRL.classList.toggle(
+                    "positive-value",
+                    valorAquisicaoBRL > 0,
+                );
+                elemValorAquisicaoBRL.classList.toggle(
+                    "negative-value",
+                    valorAquisicaoBRL < 0,
+                );
 
-          document.getElementById(
-            "percentualLucroLiquidoAquisicao",
-          ).textContent = formatPercentage(0);
-          document
-            .getElementById("percentualLucroLiquidoAquisicao")
-            .classList.remove("performance-positive", "performance-negative");
+                const elemValorVendaBRL =
+                    document.getElementById("valorVendaBRL");
+                elemValorVendaBRL.textContent = formatCurrency(valorVendaBRL);
+                elemValorVendaBRL.classList.toggle(
+                    "positive-value",
+                    valorVendaBRL > 0,
+                );
+                elemValorVendaBRL.classList.toggle(
+                    "negative-value",
+                    valorVendaBRL < 0,
+                );
 
-          document.getElementById("percentualTributosVenda").textContent =
-            formatPercentage(0);
-          document
-            .getElementById("percentualTributosVenda")
-            .classList.add("performance-negative");
-          document
-            .getElementById("percentualTributosVenda")
-            .classList.remove("performance-positive");
+                const elemLucroBrutoGC =
+                    document.getElementById("lucroBrutoGC");
+                elemLucroBrutoGC.textContent = formatCurrency(lucroBrutoGC);
+                elemLucroBrutoGC.classList.toggle(
+                    "positive-value",
+                    lucroBrutoGC > 0,
+                );
+                elemLucroBrutoGC.classList.toggle(
+                    "negative-value",
+                    lucroBrutoGC < 0,
+                );
 
-          document.getElementById("totalTributos").textContent = formatCurrency(
-            0,
-            true,
-          );
-          document
-            .getElementById("totalTributos")
-            .classList.add("performance-negative");
-          document
-            .getElementById("totalTributos")
-            .classList.remove("performance-positive");
+                const elemImpostoGC = document.getElementById("impostoGC");
+                elemImpostoGC.textContent = formatCurrency(impostoGC, true);
+                elemImpostoGC.classList.add("negative-value");
+                elemImpostoGC.classList.remove("positive-value");
 
-          return;
-        }
+                const elemIofCambio = document.getElementById("iofCambio");
+                elemIofCambio.textContent = formatCurrency(iofCambio, true);
+                elemIofCambio.classList.add("negative-value");
+                elemIofCambio.classList.remove("positive-value");
 
-        // Cálculos
-        const valorAquisicaoBRL = valorAquisicaoUSD * compraCotacao;
-        const valorVendaBRL = valorVendaUSD * vendaCotacao;
-        const lucroBrutoGC = valorVendaBRL - valorAquisicaoBRL;
+                const elemLucroLiquido =
+                    document.getElementById("lucroLiquido");
+                elemLucroLiquido.textContent = formatCurrency(lucroLiquido);
+                elemLucroLiquido.classList.toggle(
+                    "positive-value",
+                    lucroLiquido > 0,
+                );
+                elemLucroLiquido.classList.toggle(
+                    "negative-value",
+                    lucroLiquido < 0,
+                );
 
-        const impostoGC = lucroBrutoGC > 0 ? lucroBrutoGC * 0.15 : 0;
-        const iofCambio = valorVendaBRL * 0.0038;
-        const lucroLiquido = lucroBrutoGC - impostoGC - iofCambio;
-        const totalTributos = impostoGC + iofCambio;
-        const valorTotalReceber = valorVendaBRL - totalTributos;
+                const elemValorTotalReceber =
+                    document.getElementById("valorTotalReceber");
+                elemValorTotalReceber.textContent =
+                    formatCurrency(valorTotalReceber);
+                elemValorTotalReceber.classList.toggle(
+                    "positive-value",
+                    valorTotalReceber > 0,
+                );
+                elemValorTotalReceber.classList.toggle(
+                    "negative-value",
+                    valorTotalReceber < 0,
+                );
 
-        // Exibir resultados BRL
-        const elemValorAquisicaoBRL =
-          document.getElementById("valorAquisicaoBRL");
-        elemValorAquisicaoBRL.textContent = formatCurrency(valorAquisicaoBRL);
-        elemValorAquisicaoBRL.classList.toggle(
-          "positive-value",
-          valorAquisicaoBRL > 0,
-        );
-        elemValorAquisicaoBRL.classList.toggle(
-          "negative-value",
-          valorAquisicaoBRL < 0,
-        );
+                // Cálculos de Performance
+                const percentualLucroBruto =
+                    lucroBrutoGC / valorAquisicaoBRL || 0;
+                const percentualLucroLiquidoAquisicao =
+                    lucroLiquido / valorAquisicaoBRL || 0;
 
-        const elemValorVendaBRL = document.getElementById("valorVendaBRL");
-        elemValorVendaBRL.textContent = formatCurrency(valorVendaBRL);
-        elemValorVendaBRL.classList.toggle("positive-value", valorVendaBRL > 0);
-        elemValorVendaBRL.classList.toggle("negative-value", valorVendaBRL < 0);
+                let percentualTributosSobreLucroBruto = 0;
+                if (lucroBrutoGC > 0) {
+                    percentualTributosSobreLucroBruto =
+                        totalTributos / lucroBrutoGC;
+                }
 
-        const elemLucroBrutoGC = document.getElementById("lucroBrutoGC");
-        elemLucroBrutoGC.textContent = formatCurrency(lucroBrutoGC);
-        elemLucroBrutoGC.classList.toggle("positive-value", lucroBrutoGC > 0);
-        elemLucroBrutoGC.classList.toggle("negative-value", lucroBrutoGC < 0);
+                // Exibir resultados de Performance
+                const elemPercentualLucroBruto = document.getElementById(
+                    "percentualLucroBruto",
+                );
+                elemPercentualLucroBruto.textContent =
+                    formatPercentage(percentualLucroBruto);
+                elemPercentualLucroBruto.classList.toggle(
+                    "performance-positive",
+                    percentualLucroBruto > 0,
+                );
+                elemPercentualLucroBruto.classList.toggle(
+                    "performance-negative",
+                    percentualLucroBruto < 0,
+                );
 
-        const elemImpostoGC = document.getElementById("impostoGC");
-        elemImpostoGC.textContent = formatCurrency(impostoGC, true);
-        elemImpostoGC.classList.add("negative-value");
-        elemImpostoGC.classList.remove("positive-value");
+                const elemPercentualLucroLiquidoAquisicao =
+                    document.getElementById("percentualLucroLiquidoAquisicao");
+                elemPercentualLucroLiquidoAquisicao.textContent =
+                    formatPercentage(percentualLucroLiquidoAquisicao);
+                elemPercentualLucroLiquidoAquisicao.classList.toggle(
+                    "performance-positive",
+                    percentualLucroLiquidoAquisicao > 0,
+                );
+                elemPercentualLucroLiquidoAquisicao.classList.toggle(
+                    "performance-negative",
+                    percentualLucroLiquidoAquisicao < 0,
+                );
 
-        const elemIofCambio = document.getElementById("iofCambio");
-        elemIofCambio.textContent = formatCurrency(iofCambio, true);
-        elemIofCambio.classList.add("negative-value");
-        elemIofCambio.classList.remove("positive-value");
+                const elemPercentualTributosVenda = document.getElementById(
+                    "percentualTributosVenda",
+                );
+                elemPercentualTributosVenda.textContent = formatPercentage(
+                    percentualTributosSobreLucroBruto,
+                );
+                elemPercentualTributosVenda.classList.add(
+                    "performance-negative",
+                );
+                elemPercentualTributosVenda.classList.remove(
+                    "performance-positive",
+                );
 
-        const elemLucroLiquido = document.getElementById("lucroLiquido");
-        elemLucroLiquido.textContent = formatCurrency(lucroLiquido);
-        elemLucroLiquido.classList.toggle("positive-value", lucroLiquido > 0);
-        elemLucroLiquido.classList.toggle("negative-value", lucroLiquido < 0);
+                const elemTotalTributos =
+                    document.getElementById("totalTributos");
+                elemTotalTributos.textContent = formatCurrency(
+                    totalTributos,
+                    true,
+                );
+                elemTotalTributos.classList.add("performance-negative");
+                elemTotalTributos.classList.remove("performance-positive");
 
-        const elemValorTotalReceber =
-          document.getElementById("valorTotalReceber");
-        elemValorTotalReceber.textContent = formatCurrency(valorTotalReceber);
-        elemValorTotalReceber.classList.toggle(
-          "positive-value",
-          valorTotalReceber > 0,
-        );
-        elemValorTotalReceber.classList.toggle(
-          "negative-value",
-          valorTotalReceber < 0,
-        );
+                // Smooth scroll to results — uses requestAnimationFrame for iOS compatibility
+                const resultsArea = document.querySelector(".results-area");
+                if (resultsArea) {
+                    const target =
+                        resultsArea.getBoundingClientRect().top +
+                        window.pageYOffset;
+                    const start = window.pageYOffset;
+                    const distance = target - start;
+                    const duration = 500;
+                    let startTime = null;
 
-        // Cálculos de Performance
-        const percentualLucroBruto = lucroBrutoGC / valorAquisicaoBRL || 0;
-        const percentualLucroLiquidoAquisicao =
-          lucroLiquido / valorAquisicaoBRL || 0;
+                    function scrollStep(currentTime) {
+                        if (startTime === null) startTime = currentTime;
+                        const elapsed = currentTime - startTime;
+                        const progress = Math.min(elapsed / duration, 1);
+                        const ease =
+                            progress < 0.5
+                                ? 2 * progress * progress
+                                : -1 + (4 - 2 * progress) * progress;
+                        window.scrollTo(0, start + distance * ease);
+                        if (elapsed < duration) {
+                            requestAnimationFrame(scrollStep);
+                        }
+                    }
 
-        let percentualTributosSobreLucroBruto = 0;
-        if (lucroBrutoGC > 0) {
-          percentualTributosSobreLucroBruto = totalTributos / lucroBrutoGC;
-        }
-
-        // Exibir resultados de Performance
-        const elemPercentualLucroBruto = document.getElementById(
-          "percentualLucroBruto",
-        );
-        elemPercentualLucroBruto.textContent =
-          formatPercentage(percentualLucroBruto);
-        elemPercentualLucroBruto.classList.toggle(
-          "performance-positive",
-          percentualLucroBruto > 0,
-        );
-        elemPercentualLucroBruto.classList.toggle(
-          "performance-negative",
-          percentualLucroBruto < 0,
-        );
-
-        const elemPercentualLucroLiquidoAquisicao = document.getElementById(
-          "percentualLucroLiquidoAquisicao",
-        );
-        elemPercentualLucroLiquidoAquisicao.textContent = formatPercentage(
-          percentualLucroLiquidoAquisicao,
-        );
-        elemPercentualLucroLiquidoAquisicao.classList.toggle(
-          "performance-positive",
-          percentualLucroLiquidoAquisicao > 0,
-        );
-        elemPercentualLucroLiquidoAquisicao.classList.toggle(
-          "performance-negative",
-          percentualLucroLiquidoAquisicao < 0,
-        );
-
-        const elemPercentualTributosVenda = document.getElementById(
-          "percentualTributosVenda",
-        );
-        elemPercentualTributosVenda.textContent = formatPercentage(
-          percentualTributosSobreLucroBruto,
-        );
-        elemPercentualTributosVenda.classList.add("performance-negative");
-        elemPercentualTributosVenda.classList.remove("performance-positive");
-
-        const elemTotalTributos = document.getElementById("totalTributos");
-        elemTotalTributos.textContent = formatCurrency(totalTributos, true);
-        elemTotalTributos.classList.add("performance-negative");
-        elemTotalTributos.classList.remove("performance-positive");
-      }
-    </script>
-  </body>
+                    requestAnimationFrame(scrollStep);
+                }
+            }
+        </script>
+    </body>
 </html>

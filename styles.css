@@ -27,10 +27,9 @@ h4.sugiro {
   margin: 0;
 }
 h1.brand {
-  color: #f70;
-  font-size: 40px;
+  color: #f80;
+  font-size: 36px;
   font-weight: 900;
-  line-height: 1.45;
   text-align: left;
   letter-spacing: -0.5px;
   margin-top: 0;
@@ -38,7 +37,7 @@ h1.brand {
 }
 h1 a {
   text-decoration: none;
-  color: #f70;
+  color: #f80;
 }
 h3 {
   color: #fff;
@@ -56,9 +55,14 @@ h2 {
   margin-bottom: 20px;
   font-weight: 400;
 }
+.underline {
+  border-bottom: 1px solid #fff;
+}
 .section {
   margin-bottom: 20px;
-  filter: invert(1);
+}
+.section h2 {
+  color: #999;
 }
 .input-area {
   /*            background-color: #eee; */
@@ -67,7 +71,7 @@ h2 {
 .performance-area {
   padding: 20px;
   border-radius: 8px;
-  background-color: #fff;
+  background-color: #111;
 }
 .input-group {
   margin-bottom: 15px;
@@ -77,6 +81,7 @@ h2 {
   margin-bottom: 5px;
   font-weight: normal;
   font-size: 15px;
+  color: #fff;
 }
 .input-group input[type="number"] {
   width: calc(100% - 22px);
@@ -87,6 +92,8 @@ h2 {
   font-family: "Space Grotesk";
   font-size: 16px;
   font-weight: bold;
+  background-color: #111;
+  color: #fff;
 }
 .input-group input[type="number"]:focus {
   outline: none;
@@ -125,14 +132,22 @@ button {
 button:hover {
   background-color: #0ff;
 }
+.input-area button {
+  background-color: #f60;
+  color: #fff;
+}
+.input-area button:hover {
+  background-color: #f90;
+}
 .result-item,
 .performance-item {
   display: flex;
   justify-content: space-between;
   padding: 10px 0;
-  border-bottom: 1px dashed #ccc;
+  border-bottom: 1px dashed #333;
   font-weight: normal;
   font-size: 15px;
+  color: #fff;
 }
 .result-item:last-child,
 .performance-item:last-child {
@@ -154,11 +169,9 @@ button:hover {
 }
 .result-item span.positive-value {
   color: #28a745;
-  filter: invert(1);
 }
 .result-item span.negative-value {
   color: #f30;
-  filter: invert(1);
 }
 
 .performance-item span:first-child {
@@ -171,11 +184,9 @@ button:hover {
 
 .performance-item span.performance-positive {
   color: #28a745;
-  filter: invert(1);
 }
 .performance-item span.performance-negative {
   color: #f30;
-  filter: invert(1);
 }
 
 .error-message {
@@ -276,7 +287,6 @@ p.warning {
   font-size: 24px;
   font-weight: 700;
   margin-top: 0;
-  margin-bottom: -15px;
   text-align: left;
 }
 
@@ -321,7 +331,8 @@ p.warning {
   border-bottom: 1px solid #fff;
 }
 
-.close {
+.close,
+.close-obs {
   position: absolute;
   top: 15px;
   right: 25px;
@@ -334,7 +345,9 @@ p.warning {
 }
 
 .close:hover,
-.close:focus {
+.close:focus,
+.close-obs:hover,
+.close-obs:focus {
   color: #f70;
 }
 
@@ -357,6 +370,15 @@ p.warning {
   background: #666;
 }
 
+a.obs-link {
+  color: #68d2ff;
+  text-decoration: none;
+  border-bottom: 1px solid #68d2ff;
+}
+a.obs-link:hover {
+  color: #ff0;
+  border-bottom: 1px solid #ff0;
+}
 a.historico {
   color: #68d2ff;
   text-decoration: none;
