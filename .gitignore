@@ -1,0 +1,13 @@
+# Design files
+*.psd
+*.ai
+*.sketch
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Environment
+.env
+.env.local
+*.pem
