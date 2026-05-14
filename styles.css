@@ -197,7 +197,6 @@ button:hover {
     font-weight: normal;
 }
 .obs {
-    margin-top: 30px;
     margin-bottom: 30px;
 }
 .obs-row {
@@ -205,6 +204,7 @@ button:hover {
     justify-content: space-between;
     align-items: center;
     gap: 24px;
+    margin-top: -15px;
 }
 
 .obs p {
