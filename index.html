@@ -124,8 +124,13 @@
             </div>
 
             <div class="obs">
-                <div class="obs-actions">
-                    <button class="obs-trigger">Observações</button>
+                <div class="obs-row">
+                    <p class="warning">
+                        <strong
+                            >Consulte sempre um contador especializado para
+                            assuntos relacionados a impostos.</strong
+                        >
+                    </p>
                     <button
                         class="reset-trigger"
                         onclick="resetar()"
@@ -134,49 +139,11 @@
                         <img src="rotate-ccw.svg" alt="Reset" />
                     </button>
                 </div>
-                <p class="warning">
-                    <strong
-                        >Consulte sempre um contador especializado para assuntos
-                        relacionados a impostos.</strong
-                    >
-                </p>
             </div>
             <footer>
                 desenvolvido por Lula Rocha /
                 <a href="https://sugiro.ai" target="_blank">sugiro.ai</a>
             </footer>
-        </div>
-
-        <!-- Observações Modal -->
-        <div id="obsModal" class="modal">
-            <div class="modal-content">
-                <span class="close-obs">&times;</span>
-                <h2>Observações</h2>
-                <div class="modal-body">
-                    <p>
-                        Consultar a
-                        <a
-                            class="obs-link"
-                            href="https://www.bcb.gov.br/estabilidadefinanceira/historicocotacoes"
-                            target="_blank"
-                            >cotação do dólar PTAX do BCB</a
-                        >, no dia da compra e no dia da venda.
-                    </p>
-                    <p>
-                        O mercado é a referência, use a cotação de
-                        <span class="underline">Venda</span> para o dia da
-                        compra e a cotação de
-                        <span class="underline">Compra</span> para o dia da
-                        venda.
-                    </p>
-                    <p>
-                        Para efeito de simulação, a calculadora também considera
-                        que será feito o câmbio dos dólares resultantes da venda
-                        para reais, no mesmo dia, aplicando o IOF sobre o
-                        câmbio.
-                    </p>
-                </div>
-            </div>
         </div>
 
         <!-- Modal -->
@@ -249,36 +216,11 @@
                 }, 300);
             };
 
-            // Observações modal
-            const obsModal = document.getElementById("obsModal");
-            const obsBtn = document.querySelector(".obs-trigger");
-            const obsSpan = document.querySelector(".close-obs");
-
-            obsBtn.onclick = function () {
-                obsModal.style.display = "block";
-                setTimeout(() => {
-                    obsModal.classList.add("show");
-                }, 10);
-            };
-
-            obsSpan.onclick = function () {
-                obsModal.classList.remove("show");
-                setTimeout(() => {
-                    obsModal.style.display = "none";
-                }, 300);
-            };
-
             window.onclick = function (event) {
                 if (event.target == modal) {
                     modal.classList.remove("show");
                     setTimeout(() => {
                         modal.style.display = "none";
-                    }, 300);
-                }
-                if (event.target == obsModal) {
-                    obsModal.classList.remove("show");
-                    setTimeout(() => {
-                        obsModal.style.display = "none";
                     }, 300);
                 }
             };

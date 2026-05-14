@@ -200,16 +200,18 @@ button:hover {
     margin-top: 30px;
     margin-bottom: 30px;
 }
+.obs-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 24px;
+}
+
 .obs p {
     color: #fff;
     line-height: 1.5;
 }
-.obs-actions {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 16px;
-}
+
 button.reset-trigger {
     width: 42px;
     height: 42px;
@@ -234,25 +236,7 @@ button.reset-trigger img {
     width: 20px;
     height: 20px;
 }
-button.obs-trigger {
-    display: inline-block;
-    width: auto;
-    padding: 6px 14px;
-    background: #f60;
-    color: #fff;
-    font-size: 13px;
-    line-height: 1.25;
-    border: none;
-    border-radius: 5px;
-    margin: 0 0 16px 0;
-    font-family: "Space Grotesk";
-    font-weight: 600;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-button.obs-trigger:hover {
-    background: #f00;
-}
+
 footer {
     color: #aaa;
     font-size: 13px;
@@ -361,8 +345,7 @@ p.warning {
     border-bottom: 1px solid #fff;
 }
 
-.close,
-.close-obs {
+.close {
     position: absolute;
     top: 15px;
     right: 25px;
@@ -375,9 +358,7 @@ p.warning {
 }
 
 .close:hover,
-.close:focus,
-.close-obs:hover,
-.close-obs:focus {
+.close:focus {
     color: #f70;
 }
 
@@ -400,15 +381,6 @@ p.warning {
     background: #666;
 }
 
-a.obs-link {
-    color: #68d2ff;
-    text-decoration: none;
-    border-bottom: 1px solid #68d2ff;
-}
-a.obs-link:hover {
-    color: #ff0;
-    border-bottom: 1px solid #ff0;
-}
 a.historico {
     color: #68d2ff;
     text-decoration: none;
