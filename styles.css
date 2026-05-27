@@ -384,9 +384,9 @@ p.warning {
 }
 
 a.historico {
-    color: #68d2ff;
+    color: #00afff;
     text-decoration: none;
-    border-bottom: 1px solid #68d2ff;
+    border-bottom: 1px solid #00afff;
     line-height: 4;
 }
 a.historico:hover {
