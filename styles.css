@@ -263,6 +263,10 @@ p.warning {
 }
 
 /* Modal Styles */
+span.under {
+    border-bottom: 1px solid #f80;
+}
+
 .modal {
     display: none;
     position: fixed;
