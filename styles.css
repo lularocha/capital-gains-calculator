@@ -41,7 +41,7 @@ h1 a {
 }
 h3 {
     color: #fff;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: normal;
 }
 h2 a {
@@ -103,13 +103,14 @@ h2 {
 button.help {
     width: 150px;
     position: absolute;
-    top: -11px;
-    right: 25px;
+    top: -35px;
+    right: 0;
     color: #fff;
     font-size: 14px;
     line-height: 1.25;
     background: #f60;
     padding: 8px 12px;
+    border-radius: 0 0 0 30px;
 }
 button.help:hover {
     background: #f00;
