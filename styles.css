@@ -83,7 +83,7 @@ h2 {
     font-size: 15px;
     color: #fff;
 }
-.input-group input[type="number"] {
+.input-group input[type="text"] {
     width: calc(100% - 22px);
     padding: 10px;
     border: 0 solid #ccc;
@@ -95,7 +95,7 @@ h2 {
     background-color: #111;
     color: #fff;
 }
-.input-group input[type="number"]:focus {
+.input-group input[type="text"]:focus {
     outline: none;
     border-color: #0ff;
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
@@ -299,7 +299,7 @@ p.warning {
 }
 
 .modal-content h2 {
-    color: #f70;
+    color: #f80;
     font-size: 24px;
     font-weight: 700;
     margin-top: 0;

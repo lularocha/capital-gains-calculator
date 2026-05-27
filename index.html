@@ -24,10 +24,10 @@
                         >Cotação USD/BRL PTAX na Compra</label
                     >
                     <input
-                        type="number"
+                        type="text"
                         id="compraCotacao"
                         placeholder="Ex: 5.00"
-                        step="0.0001"
+                        inputmode="decimal"
                     />
                     <div class="error-message" id="compraCotacaoError"></div>
                 </div>
@@ -36,10 +36,10 @@
                         >Valor da Compra em USD</label
                     >
                     <input
-                        type="number"
+                        type="text"
                         id="valorAquisicaoUSD"
                         placeholder="Ex: 1000.00"
-                        step="0.01"
+                        inputmode="decimal"
                     />
                     <div
                         class="error-message"
@@ -51,20 +51,20 @@
                         >Cotação USD/BRL PTAX na Venda</label
                     >
                     <input
-                        type="number"
+                        type="text"
                         id="vendaCotacao"
                         placeholder="Ex: 5.20"
-                        step="0.0001"
+                        inputmode="decimal"
                     />
                     <div class="error-message" id="vendaCotacaoError"></div>
                 </div>
                 <div class="input-group">
                     <label for="valorVendaUSD">Valor da Venda em USD</label>
                     <input
-                        type="number"
+                        type="text"
                         id="valorVendaUSD"
                         placeholder="Ex: 1200.00"
-                        step="0.01"
+                        inputmode="decimal"
                     />
                     <div class="error-message" id="valorVendaUSDError"></div>
                 </div>
@@ -248,10 +248,14 @@
                 });
             }
 
+            function parseDecimal(str) {
+                return parseFloat(str.replace(",", "."));
+            }
+
             function validateInput(id, errorMessageId, fieldName) {
                 const inputElement = document.getElementById(id);
                 const errorElement = document.getElementById(errorMessageId);
-                const value = parseFloat(inputElement.value);
+                const value = parseDecimal(inputElement.value);
 
                 if (isNaN(value) || value <= 0) {
                     errorElement.textContent = `Por favor, insira um valor válido e maior que zero para ${fieldName}.`;
@@ -265,16 +269,16 @@
             }
 
             function calcular() {
-                const compraCotacao = parseFloat(
+                const compraCotacao = parseDecimal(
                     document.getElementById("compraCotacao").value,
                 );
-                const valorAquisicaoUSD = parseFloat(
+                const valorAquisicaoUSD = parseDecimal(
                     document.getElementById("valorAquisicaoUSD").value,
                 );
-                const vendaCotacao = parseFloat(
+                const vendaCotacao = parseDecimal(
                     document.getElementById("vendaCotacao").value,
                 );
-                const valorVendaUSD = parseFloat(
+                const valorVendaUSD = parseDecimal(
                     document.getElementById("valorVendaUSD").value,
                 );
 
