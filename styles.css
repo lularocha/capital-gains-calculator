@@ -73,6 +73,35 @@ h2 {
     border-radius: 8px;
     background-color: #111;
 }
+.input-columns {
+    display: flex;
+    gap: 24px;
+}
+.input-column {
+    flex: 1;
+    min-width: 0;
+}
+.input-column + .input-column {
+    border-left: 1px solid #333;
+    padding-left: 24px;
+}
+.col-title {
+    color: #fff;
+    font-size: 28px;
+    font-weight: 700;
+    margin: 0 0 15px;
+}
+@media (max-width: 600px) {
+    .input-columns {
+        gap: 12px;
+    }
+    .input-column + .input-column {
+        padding-left: 12px;
+    }
+    .col-title {
+        font-size: 22px;
+    }
+}
 .input-group {
     margin-bottom: 15px;
 }
@@ -80,25 +109,47 @@ h2 {
     display: block;
     margin-bottom: 5px;
     font-weight: normal;
-    font-size: 15px;
+    font-size: 14px;
+    color: #aaa;
+}
+.input-wrap {
+    display: flex;
+    align-items: center;
+    background-color: #111;
+    border-radius: 4px;
+    padding: 0 10px;
+    margin-bottom: 10px;
+}
+.input-wrap:focus-within {
+    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.input-prefix {
+    margin-right: 6px;
+    font-size: 16px;
+    font-weight: bold;
     color: #fff;
+    pointer-events: none;
+}
+.input-wrap:has(input:placeholder-shown) .input-prefix {
+    color: #888;
 }
 .input-group input[type="text"] {
-    width: calc(100% - 22px);
-    padding: 10px;
-    border: 0 solid #ccc;
-    border-radius: 4px;
-    margin-bottom: 10px;
+    flex: 1;
+    min-width: 0;
+    padding: 10px 0;
+    border: 0;
     font-family: "Space Grotesk";
     font-size: 16px;
     font-weight: bold;
-    background-color: #111;
+    background-color: transparent;
     color: #fff;
 }
 .input-group input[type="text"]:focus {
     outline: none;
-    border-color: #0ff;
-    box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
+}
+.input-group input[type="text"]::placeholder {
+    color: #888;
+    opacity: 1;
 }
 button.help {
     width: 150px;
