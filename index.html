@@ -49,8 +49,9 @@
                                 <input
                                     type="text"
                                     id="compraCotacao"
-                                    placeholder="5,00"
+                                    placeholder="5,1234"
                                     inputmode="decimal"
+                                    data-max-decimals="4"
                                 />
                             </div>
                             <div
@@ -88,8 +89,9 @@
                                 <input
                                     type="text"
                                     id="vendaCotacao"
-                                    placeholder="5,20"
+                                    placeholder="5,2345"
                                     inputmode="decimal"
+                                    data-max-decimals="4"
                                 />
                             </div>
                             <div
@@ -332,9 +334,13 @@
                 intPart = intPart.replace(/^0+(?=\d)/, "");
                 intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
 
+                // Número máximo de casas decimais permitido para o campo
+                // (cotação PTAX usa 4; valores monetários usam 2).
+                const maxDecimals = parseInt(input.dataset.maxDecimals, 10) || 2;
+
                 let formatted = intPart;
                 if (decPart !== undefined) {
-                    formatted = intPart + "," + decPart.slice(0, 2);
+                    formatted = intPart + "," + decPart.slice(0, maxDecimals);
                 }
 
                 input.value = formatted;
