@@ -517,30 +517,15 @@
                 const valorTotalReceber = valorVendaBRL - totalTributos;
 
                 // Exibir resultados BRL
+                // Valor da Compra e Valor da Venda permanecem brancos (sem cor)
                 const elemValorAquisicaoBRL =
                     document.getElementById("valorAquisicaoBRL");
                 elemValorAquisicaoBRL.textContent =
                     formatCurrency(valorAquisicaoBRL);
-                elemValorAquisicaoBRL.classList.toggle(
-                    "positive-value",
-                    valorAquisicaoBRL > 0,
-                );
-                elemValorAquisicaoBRL.classList.toggle(
-                    "negative-value",
-                    valorAquisicaoBRL < 0,
-                );
 
                 const elemValorVendaBRL =
                     document.getElementById("valorVendaBRL");
                 elemValorVendaBRL.textContent = formatCurrency(valorVendaBRL);
-                elemValorVendaBRL.classList.toggle(
-                    "positive-value",
-                    valorVendaBRL > 0,
-                );
-                elemValorVendaBRL.classList.toggle(
-                    "negative-value",
-                    valorVendaBRL < 0,
-                );
 
                 const elemLucroBrutoGC =
                     document.getElementById("lucroBrutoGC");
@@ -576,18 +561,11 @@
                     lucroLiquido < 0,
                 );
 
+                // Total líquido a receber permanece branco (sem cor)
                 const elemValorTotalReceber =
                     document.getElementById("valorTotalReceber");
                 elemValorTotalReceber.textContent =
                     formatCurrency(valorTotalReceber);
-                elemValorTotalReceber.classList.toggle(
-                    "positive-value",
-                    valorTotalReceber > 0,
-                );
-                elemValorTotalReceber.classList.toggle(
-                    "negative-value",
-                    valorTotalReceber < 0,
-                );
 
                 // Cálculos de Performance
                 const percentualLucroBruto =
