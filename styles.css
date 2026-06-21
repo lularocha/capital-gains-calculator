@@ -87,7 +87,7 @@ h2 {
 }
 .col-title {
     color: #fff;
-    font-size: 28px;
+    font-size: 24px;
     font-weight: 700;
     margin: 0 0 15px;
 }
@@ -99,7 +99,7 @@ h2 {
         padding-left: 12px;
     }
     .col-title {
-        font-size: 22px;
+        font-size: 18px;
     }
 }
 .input-group {
