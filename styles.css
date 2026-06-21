@@ -118,7 +118,7 @@ h2 {
     background-color: #111;
     border-radius: 4px;
     padding: 0 10px;
-    margin-bottom: 10px;
+    margin-bottom: 25px;
 }
 .input-wrap:focus-within {
     box-shadow: 0 0 0 2px rgba(0, 123, 255, 0.25);
