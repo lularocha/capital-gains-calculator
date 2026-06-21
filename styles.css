@@ -220,10 +220,10 @@ button:hover {
     margin-bottom: -6px;
 }
 .result-item span.positive-value {
-    color: #28a745;
+    color: hsl(134, 61%, 41%);
 }
 .result-item span.negative-value {
-    color: #f30;
+    color: hsl(12, 100%, 50%);
 }
 
 .performance-item span:first-child {
@@ -235,10 +235,10 @@ button:hover {
 }
 
 .performance-item span.performance-positive {
-    color: #28a745;
+    color: hsl(134, 61%, 41%);
 }
 .performance-item span.performance-negative {
-    color: #f30;
+    color: hsl(12, 100%, 50%);
 }
 
 .error-message {
