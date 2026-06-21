@@ -33,7 +33,7 @@ h1.brand {
     text-align: left;
     letter-spacing: -0.5px;
     margin-top: 0;
-    margin-bottom: 35px;
+    margin-bottom: 15px;
 }
 h1 a {
     text-decoration: none;
@@ -62,7 +62,7 @@ h2 {
     margin-bottom: 20px;
 }
 .section h2 {
-    color: #999;
+    color: #ff9900;
 }
 .input-area {
     /*            background-color: #eee; */
