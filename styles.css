@@ -187,8 +187,6 @@ button:hover {
 .input-area button {
     background-color: #f30;
     color: #fff;
-    padding: 18px 20px;
-    font-size: 20px;
 }
 .input-area button:hover {
     background-color: #f50;
