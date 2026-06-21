@@ -185,11 +185,11 @@ button:hover {
     background-color: #0ff;
 }
 .input-area button {
-    background-color: #900;
+    background-color: #700;
     color: #fff;
 }
 .input-area button:hover {
-    background-color: #b00;
+    background-color: #900;
 }
 .result-item,
 .performance-item {
