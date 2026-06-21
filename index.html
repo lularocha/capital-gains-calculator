@@ -49,7 +49,7 @@
                                 <input
                                     type="text"
                                     id="compraCotacao"
-                                    placeholder="5.00"
+                                    placeholder="5,00"
                                     inputmode="decimal"
                                 />
                             </div>
@@ -67,7 +67,7 @@
                                 <input
                                     type="text"
                                     id="valorAquisicaoUSD"
-                                    placeholder="1000.00"
+                                    placeholder="1.000,00"
                                     inputmode="decimal"
                                 />
                             </div>
@@ -88,7 +88,7 @@
                                 <input
                                     type="text"
                                     id="vendaCotacao"
-                                    placeholder="5.20"
+                                    placeholder="5,20"
                                     inputmode="decimal"
                                 />
                             </div>
@@ -106,7 +106,7 @@
                                 <input
                                     type="text"
                                     id="valorVendaUSD"
-                                    placeholder="1200.00"
+                                    placeholder="1.200,00"
                                     inputmode="decimal"
                                 />
                             </div>
@@ -302,9 +302,53 @@
                 });
             }
 
+            // Converte um valor no formato brasileiro (1.000,50) para Number.
+            // Remove os pontos de milhar e troca a vírgula decimal por ponto.
             function parseDecimal(str) {
-                return parseFloat(str.replace(",", "."));
+                if (typeof str !== "string") return NaN;
+                return parseFloat(str.replace(/\./g, "").replace(",", "."));
             }
+
+            // Formata o valor digitado no padrão brasileiro enquanto o usuário
+            // digita: ponto para separar milhares e vírgula para os centavos.
+            function formatThousandsInput(event) {
+                const input = event.target;
+                let value = input.value;
+
+                // Mantém apenas dígitos e vírgulas
+                value = value.replace(/[^\d,]/g, "");
+
+                // Permite somente a primeira vírgula (separador decimal)
+                const firstComma = value.indexOf(",");
+                if (firstComma !== -1) {
+                    value =
+                        value.slice(0, firstComma + 1) +
+                        value.slice(firstComma + 1).replace(/,/g, "");
+                }
+
+                let [intPart, decPart] = value.split(",");
+
+                // Remove zeros à esquerda e agrupa os milhares com ponto
+                intPart = intPart.replace(/^0+(?=\d)/, "");
+                intPart = intPart.replace(/\B(?=(\d{3})+(?!\d))/g, ".");
+
+                let formatted = intPart;
+                if (decPart !== undefined) {
+                    formatted = intPart + "," + decPart.slice(0, 2);
+                }
+
+                input.value = formatted;
+            }
+
+            // Aplica a máscara brasileira aos campos numéricos
+            ["compraCotacao", "valorAquisicaoUSD", "vendaCotacao", "valorVendaUSD"].forEach(
+                (id) => {
+                    const el = document.getElementById(id);
+                    if (el) {
+                        el.addEventListener("input", formatThousandsInput);
+                    }
+                },
+            );
 
             function validateInput(id, errorMessageId, fieldName) {
                 const inputElement = document.getElementById(id);
