@@ -88,7 +88,7 @@ h2 {
 .col-title {
     color: #fff;
     font-size: 24px;
-    font-weight: 700;
+    font-weight: 400;
     margin: 0 0 15px;
 }
 @media (max-width: 600px) {
@@ -152,15 +152,15 @@ h2 {
     opacity: 1;
 }
 button.help {
-    width: 200px;
+    width: 180px;
     position: absolute;
     top: -35px;
     right: 0;
     color: #fff;
-    font-size: 13px;
+    font-size: 12px;
     line-height: 1.25;
     background: #f50;
-    padding: 8px 12px;
+    padding: 8px 8px 8px 14px;
     border-radius: 0 0 0 30px;
 }
 button.help:hover {
