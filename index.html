@@ -30,9 +30,7 @@
             <h4 class="sugiro">sugiro.ai</h4>
             <h1 class="brand">TAXMAN</h1>
             <button class="help">SOBRE A COTAÇÃO PTAX</button>
-            <h3>
-                Cálculo de operação com ações americanas.
-            </h3>
+            <h3>Compra e venda de ações americanas</h3>
 
             <div class="section input-area">
                 <h2>Dados da operação</h2>
@@ -335,7 +333,8 @@
 
                 // Número máximo de casas decimais permitido para o campo
                 // (cotação PTAX usa 4; valores monetários usam 2).
-                const maxDecimals = parseInt(input.dataset.maxDecimals, 10) || 2;
+                const maxDecimals =
+                    parseInt(input.dataset.maxDecimals, 10) || 2;
 
                 let formatted = intPart;
                 if (decPart !== undefined) {
@@ -346,14 +345,17 @@
             }
 
             // Aplica a máscara brasileira aos campos numéricos
-            ["compraCotacao", "valorAquisicaoUSD", "vendaCotacao", "valorVendaUSD"].forEach(
-                (id) => {
-                    const el = document.getElementById(id);
-                    if (el) {
-                        el.addEventListener("input", formatThousandsInput);
-                    }
-                },
-            );
+            [
+                "compraCotacao",
+                "valorAquisicaoUSD",
+                "vendaCotacao",
+                "valorVendaUSD",
+            ].forEach((id) => {
+                const el = document.getElementById(id);
+                if (el) {
+                    el.addEventListener("input", formatThousandsInput);
+                }
+            });
 
             function validateInput(id, errorMessageId, fieldName) {
                 const inputElement = document.getElementById(id);
