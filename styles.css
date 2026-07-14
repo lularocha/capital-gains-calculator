@@ -69,6 +69,9 @@ h2 {
 .input-area {
     /*            background-color: #eee; */
 }
+.input-area h2 {
+    margin-bottom: 35px;
+}
 .results-area,
 .performance-area {
     padding: 20px;
