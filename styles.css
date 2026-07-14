@@ -78,6 +78,7 @@ h2 {
 .input-columns {
     display: flex;
     gap: 24px;
+    margin-top: 15px;
 }
 .input-column {
     flex: 1;
@@ -189,6 +190,7 @@ button:hover {
 .input-area button {
     background-color: #800;
     color: #fff;
+    margin-top: 20px;
 }
 .input-area button:hover {
     background-color: #a00;
