@@ -3,8 +3,9 @@
 body {
     font-family: "Space Grotesk", "Arial", sans-serif;
     margin: 20px;
-    background-color: #000;
+    background-color: #131317;
     overflow-x: hidden;
+    padding-top: env(safe-area-inset-top);
 }
 @media (max-width: 600px) {
     body {
