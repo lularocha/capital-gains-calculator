@@ -73,7 +73,7 @@ h2 {
 .performance-area {
     padding: 20px;
     border-radius: 8px;
-    background-color: #111;
+    background-color: #000;
 }
 .input-columns {
     display: flex;
@@ -117,7 +117,7 @@ h2 {
 .input-wrap {
     display: flex;
     align-items: center;
-    background-color: #111;
+    background-color: #000;
     border-radius: 4px;
     padding: 0 10px;
     margin-bottom: 25px;
